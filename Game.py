@@ -1,4 +1,5 @@
 import pygame
+import random
 
 from src.Blackship import Blackship
 from src.Enemy import Enemy
@@ -13,7 +14,7 @@ missile_image = pygame.image.load('src/img/missile.png')
 blackship_image = pygame.image.load('src/img/blackship.png')
 
 # setting constants
-RESPAWN_SPEED = 10000
+RESPAWN_SPEED = 15000
 RELOAD_SPEED = 400
 MOVE_GRUNTS_DOWN = 3000
 # only change needed to change the speeds of the enemies is the constants
@@ -171,7 +172,9 @@ while running:
             spawn_elites(ROWSIZE * 2)
 
         if Blackship.on_screen is False:
-            spawn_blackship()  # TODO: randomize it so the player isn't drowning in blackships(1/5000 chance?)
+            r_num = random.randint(1, 2000)  # randomizes the chance of a blackship: 3% chance per sec
+            if r_num is 1:
+                spawn_blackship()
         else:
             for blackship in blackship_list:
                 blackship.follow(player)  # TODO: make the blackship rotate in the direction of the player
